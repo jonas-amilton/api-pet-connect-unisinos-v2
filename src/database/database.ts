@@ -16,6 +16,10 @@ const sequelize = new Sequelize({
   database: process.env.DB_NAME,
   port: Number(process.env.DB_PORT),
   models: [__dirname + "/../models"],
+  define: {
+    underscored: true,
+    freezeTableName: false,
+  },
 });
 
 export default sequelize;
