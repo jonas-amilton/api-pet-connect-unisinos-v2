@@ -1,22 +1,53 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, Model, Table, DataType } from "sequelize-typescript";
 
-@Table
+@Table({
+  tableName: "users",
+  timestamps: true,
+})
 class User extends Model {
-  @PrimaryKey
-  @Column
-  id!: string;
+  @Column({
+    type: DataType.UUID,
+    primaryKey: true,
+    defaultValue: DataType.UUID,
+  })
+  id!: number;
 
-  @Column
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
   email!: string;
 
-  @Column
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
   username!: string;
 
-  @Column
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
   password!: string;
 
-  @Column
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  })
   isAdmin!: boolean;
+
+  @Column({
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
+  })
+  createdAt!: Date;
+
+  @Column({
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
+  })
+  updatedAt!: Date;
 }
 
 export default User;
