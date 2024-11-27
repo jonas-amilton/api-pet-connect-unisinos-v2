@@ -8,4 +8,8 @@ router.post("/login", (req, res) => {
   authController.login(req, res);
 });
 
+router.post("/register", (req, res) => {
+  authController.create(req, res);
+});
+
 export default router;
