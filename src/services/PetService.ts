@@ -10,4 +10,31 @@ export class PetService {
 
     return allPets;
   }
+
+  async createPet({
+    name,
+    age,
+    size,
+    photo,
+  }: {
+    name: string;
+    age: string;
+    size: string;
+    photo: any;
+  }) {
+    if (!photo) {
+      throw new Error("Foto é obrigatória");
+    }
+
+    const pathFile = `/uploads/images/${photo.filename}`;
+
+    const newPet = await Pet.create({
+      name,
+      age,
+      size,
+      photo: pathFile,
+    });
+
+    return newPet;
+  }
 }

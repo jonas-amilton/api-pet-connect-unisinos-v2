@@ -23,4 +23,28 @@ export class PetController {
       }
     }
   }
+
+  async create(req: Request, res: Response) {
+    try {
+      const { name, age, size } = req.body;
+
+      const pet = await petService.createPet({
+        name,
+        age,
+        size,
+        photo: req.file,
+      });
+
+      res.json({
+        success: true,
+        message: "Pet adicionado com sucesso",
+        data: pet,
+      });
+    } catch (error: any) {
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
 }
