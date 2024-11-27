@@ -48,8 +48,6 @@ export class UserController {
         data: newUser,
       });
     } catch (error: any) {
-      console.error("Erro ao criar usuário:", error);
-
       if (error.message === "Usuário já está cadastrado!") {
         return res.status(409).json({ message: error.message });
       } else {
