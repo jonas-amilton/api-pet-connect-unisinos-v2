@@ -6,9 +6,9 @@ import { Column, Model, Table, DataType } from "sequelize-typescript";
 })
 class Pet extends Model {
   @Column({
-    type: DataType.UUID,
+    type: DataType.INTEGER,
     primaryKey: true,
-    defaultValue: DataType.UUID,
+    autoIncrement: true,
   })
   id!: number;
 
@@ -48,3 +48,5 @@ class Pet extends Model {
   })
   updatedAt!: Date;
 }
+
+export default Pet;
