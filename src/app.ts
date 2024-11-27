@@ -3,6 +3,7 @@ import cors from "cors";
 import sequelize from "./database/database";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
+import petRoutes from "./routes/petRoutes";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 // Rotas
 app.use("/api/pet-connect/auth", authRoutes);
 app.use("/api/pet-connect", userRoutes);
+app.use("/api/pet-connect", petRoutes);
 
 // Conecta ao banco de dados
 sequelize
