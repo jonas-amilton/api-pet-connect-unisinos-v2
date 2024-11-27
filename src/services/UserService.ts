@@ -37,4 +37,27 @@ export class UserService {
 
     return newUser;
   }
+
+  async loginUser({ email, password }: { email: string; password: string }) {
+    const existingUser = await User.findOne({
+      where: { email: email },
+    });
+
+    const isPasswordValid = existingUser
+      ? existingUser.password === password
+      : false;
+
+    if (!isPasswordValid) {
+      throw new Error("Credenciais inválidas");
+    }
+
+    const loggedUser = {
+      id: existingUser?.id,
+      username: existingUser?.username,
+      email: existingUser?.email,
+      isAdmin: existingUser?.isAdmin,
+    };
+
+    return loggedUser;
+  }
 }
