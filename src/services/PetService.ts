@@ -26,7 +26,7 @@ export class PetService {
       throw new Error("Foto é obrigatória");
     }
 
-    const pathFile = `/uploads/images/${photo.filename}`;
+    const pathFile = `/images/${photo.filename}`;
 
     const newPet = await Pet.create({
       name,
