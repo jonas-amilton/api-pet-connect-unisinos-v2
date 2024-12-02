@@ -1,4 +1,5 @@
-import { Column, Model, Table, DataType } from "sequelize-typescript";
+import { Column, Model, Table, DataType, HasMany } from "sequelize-typescript";
+import Image from "./Image";
 
 @Table({
   tableName: "pets",
@@ -31,12 +32,6 @@ class Pet extends Model {
   size!: string;
 
   @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  photo!: string;
-
-  @Column({
     type: DataType.DATE,
     defaultValue: DataType.NOW,
   })
@@ -47,6 +42,9 @@ class Pet extends Model {
     defaultValue: DataType.NOW,
   })
   updatedAt!: Date;
+
+  @HasMany(() => Image)
+  images!: Image[];
 }
 
 export default Pet;
