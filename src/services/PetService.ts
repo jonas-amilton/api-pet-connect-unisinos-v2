@@ -1,3 +1,4 @@
+import Image from "../models/Image";
 import Pet from "../models/Pet";
 
 export class PetService {
@@ -20,21 +21,45 @@ export class PetService {
     name: string;
     age: string;
     size: string;
-    photo: any;
+    photo: Express.Multer.File;
   }) {
     if (!photo) {
       throw new Error("Foto é obrigatória");
     }
 
-    const pathFile = `/images/${photo.filename}`;
-
     const newPet = await Pet.create({
       name,
       age,
       size,
-      photo: pathFile,
     });
 
-    return newPet;
+    const newImage = await Image.create({
+      petId: newPet.id,
+      name: photo.originalname,
+      extension: photo.mimetype,
+      size: photo.size,
+      data: photo.buffer,
+    });
+
+    return {
+      pet: newPet,
+      image: newImage,
+    };
+  }
+
+  async getPetImageById(petId: number) {
+    const pet = await Pet.findOne({ where: { id: petId } });
+
+    if (!pet) {
+      throw new Error(`Pet com ID ${petId} não encontrado.`);
+    }
+
+    const image = await Image.findOne({ where: { petId } });
+
+    if (!image) {
+      throw new Error(`Nenhuma imagem encontrada para o pet ${petId}`);
+    }
+
+    return image;
   }
 }
