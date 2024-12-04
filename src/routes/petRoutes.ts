@@ -10,4 +10,8 @@ router.post("/pets", upload.single("photo"), (req, res) => {
   petController.create(req, res);
 });
 
+router.get("/pets/:id/images", (req, res) => {
+  petController.getImage(req, res);
+});
+
 export default router;
